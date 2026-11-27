@@ -1,0 +1,16 @@
+# Advanced Derivatives coursework 2026-27
+# FinancePy is required by Question 1(a).
+financepy
+
+# Numerical simulation, statistics, tables and plots (Questions 1-4).
+numpy
+scipy
+pandas
+matplotlib
+
+# JIT acceleration for Monte Carlo / hedging loops.
+numba
+
+# Notebook environment (optional if submitting a .py file).
+jupyterlab
+ipykernel
