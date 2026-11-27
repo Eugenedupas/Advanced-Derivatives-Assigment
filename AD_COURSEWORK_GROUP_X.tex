@@ -1,0 +1,433 @@
+%=============================================================================
+%  AD_COURSEWORK_GROUP_X.tex
+%
+%  Advanced Derivatives -- Coursework report template (2026-27)
+%
+%  How to use it:
+%   1. Replace "X" in the group number below and fill in the names/IDs.
+%   2. Work through Questions 1-4. Every grey box is a placeholder for a
+%      figure, a table or a code listing. The italic line under each heading
+%      restates what the question asks -- delete it before you submit.
+%   3. Delete the appendix "Hints" section from your final PDF.
+%
+%  The report (excluding the cover page) must be at most 10 pages.
+%=============================================================================
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{xspace}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\definecolor{linkblue}{RGB}{0,70,140}
+\hypersetup{colorlinks=true, linkcolor=linkblue, urlcolor=linkblue,
+            citecolor=linkblue}
+
+\graphicspath{{figures/}}
+
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green!50!black},
+  stringstyle=\color{red!70!black},
+  showstringspaces=false,
+  numbers=left,
+  numberstyle=\tiny,
+  stepnumber=1,
+  frame=single,
+  breaklines=true
+}
+
+%-----------------------------------------------------------------------------
+%  Template macros -- replace the boxes, do not redefine them
+%-----------------------------------------------------------------------------
+
+% Framed "Answer." line that opens every sub-question.
+\newcommand{\subq}[2]{%
+  \subsection*{#1}%
+  \noindent\textit{#2}\par\medskip
+  \noindent\textbf{Answer.}\par}
+
+% Placeholder for a figure.  Usage: \figplaceholder[width]{caption}{label}
+\newcommand{\figplaceholder}[3][0.85\textwidth]{%
+  \begin{figure}[H]
+    \centering
+    \fbox{\parbox[c][3.4cm][c]{#1}{\centering\color{gray}\small
+      FIGURE PLACEHOLDER\\[2mm]
+      replace this box with\\[1mm]
+      \texttt{\textbackslash includegraphics[width=\textbackslash linewidth]\{...\}}}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}}
+
+% Placeholder for a table.  Usage: \tabplaceholder{caption}{label}
+\newcommand{\tabplaceholder}[2]{%
+  \begin{table}[H]
+    \centering
+    \fbox{\parbox[c][2.4cm][c]{0.85\textwidth}{\centering\color{gray}\small
+      TABLE PLACEHOLDER\\[2mm]
+      paste the output of \texttt{df.to\_latex(...)}}}
+    \caption{#1}
+    \label{#2}
+  \end{table}}
+
+% Placeholder for a code listing.  Usage: \codeslot{description}
+\newcommand{\codeslot}[1]{%
+  \begin{center}
+    \fbox{\parbox{0.9\textwidth}{\centering\color{gray}\small
+      CODE PLACEHOLDER: #1\\[1mm]
+      use \texttt{\textbackslash lstinputlisting[language=Python]\{...\}}}}
+  \end{center}}
+
+%-----------------------------------------------------------------------------
+\begin{document}
+
+%-----------------------------------------------------------------------------
+%  COVER PAGE
+%-----------------------------------------------------------------------------
+\begin{titlepage}
+\centering
+\vspace*{1.5cm}
+
+{\Large\bfseries EDHEC Business School}\\[3mm]
+{\large M.Sc. in Financial Engineering}\\[18mm]
+
+{\LARGE\bfseries Advanced Derivatives}\\[5mm]
+{\LARGE Coursework Report}\\[6mm]
+{\Large Academic Year 2026--27}\\[18mm]
+
+{\Large\bfseries Group X}\\[10mm]
+
+\begin{tabular}{@{}cll@{}}
+\toprule
+\# & Name & Student ID\\
+\midrule
+1 & \hspace{7cm} & \hspace{3cm}\\
+2 & \hspace{7cm} & \hspace{3cm}\\
+3 & \hspace{7cm} & \hspace{3cm}\\
+\bottomrule
+\end{tabular}
+
+\vfill
+{\large Deadline: Tuesday 1 December 2026}\\[3mm]
+{\normalsize Upload as \texttt{AD\_COURSEWORK\_GROUP\_X.zip}}
+\vspace*{1.5cm}
+\end{titlepage}
+
+%-----------------------------------------------------------------------------
+%  SUBMISSION CHECKLIST
+%-----------------------------------------------------------------------------
+\section*{Submission checklist}
+\begin{center}
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+  \item The ZIP contains this PDF report and \textbf{one} notebook or
+        \texttt{.py} file with all the code for Questions 1--4.
+  \item The report answers all questions \textbf{in order}, with every table
+        and figure printed in the PDF (do not refer to the notebook for them).
+  \item Excluding this cover page, the report is at most \textbf{12 pages}.
+  \item The code is split clearly by question, commented, and your results are
+        explained in plain English.
+  \item No Word documents. PDF only.
+\end{itemize}
+\end{center}
+
+\section*{Explanation \LaTeX}
+\begin{itemize}
+  \item You can use this template with a local \LaTeX\xspace installation (e.g.
+    TexMaker (editor) and a local \LaTeX\xspace installation (TexLive, MikTeX,
+    MacTeX)) or usign \href{overleaf.com}{Overleaf} (easiest).
+  \item For those that would like to learn more See
+    \href{https://www.youtube.com/watch?v=0ivLZh9xK1Q&list=PL1D4EAB31D3EBC449}{LaTeX
+    course} for a good course.
+  \item Feel free to use an AI assistant to help you with the \LaTeX\xspace part.
+\end{itemize}
+
+\newpage
+%=============================================================================
+\section*{Question 1: Black-Scholes-Merton hedging}
+%=============================================================================
+
+\subq{1(a) Using the FinancePy library}
+{Install FinancePy and call the model functions
+(\texttt{bs\_value}, \texttt{bs\_delta}, \ldots) directly instead of going
+through the \texttt{EquityOptions} wrapper, which is much slower.}
+\codeslot{the import and the direct library calls you use}
+
+\subq{1(b) The \texttt{DeltaHedge} function}
+{Write a function that simulates delta hedging of a European put from trade
+date to expiry using a self-financing portfolio. Inputs: $K$, $S$, $r$,
+$\mu$, $\sigma$, $T$ and the number of hedges per year $N$. Output: a tuple
+with the terminal stock price, the option payoff, the realised variance of
+returns, the replicating error (portfolio value minus payoff) and the
+average gamma over the hedging period.}
+\codeslot{the full definition of \texttt{DeltaHedge}}
+
+\subq{1(c) Running 10,000 paths}
+{Write a second function that calls \texttt{DeltaHedge} over 10,000
+independent paths and returns the results in a convenient (e.g.\ DataFrame)
+form. Include a clear listing of the code.}
+\codeslot{the path-loop / vectorised wrapper}
+
+\subq{1(d) Hedging error versus terminal stock price}
+{For $S(0)=100$, $K=100$, $r=4\%$, $T=1$, $\sigma=20\%$ and $\mu=8\%$,
+scatter the hedging error ($y$) against the terminal stock price ($x$) for
+$N=12$, $N=52$ and $N=252$, using different colours or symbols.}
+\figplaceholder{Hedging error against terminal stock price for $N=12$, $52$
+and $252$. Caption must state the parameters.}{fig:q1-error}
+
+\subq{1(e) Mean and variance of the hedging error}
+{For each $N$, report the mean and the variance of the hedging error over
+10,000 paths in a simple table.}
+\tabplaceholder{Mean and variance of the hedging error over 10,000 paths.}
+{tab:q1-moments}
+
+\subq{1(f) Realised volatility and the replication error}
+{Scatter the realised volatility against the replication error and explain
+the pattern you see.}
+\figplaceholder{Replication error against realised volatility.}{fig:q1-realvol}
+
+\subq{1(g) Average gamma and the replication error}
+{In addition to the delta, compute the gamma at each hedging date. Scatter
+the replication error against the average gamma along each path and explain
+the pattern.}
+\figplaceholder{Replication error against average gamma.}{fig:q1-gamma}
+
+\subq{1(h) Drift sensitivity}
+{Repeat the exercise for $\mu=2.5\%,\,5.0\%,\,7.5\%,\,10\%$ with $N=52$ and
+10,000 paths. Report the mean absolute error and the variance of the
+hedging error in a table. Is the effect of the drift small or large?}
+\tabplaceholder{Hedging error statistics for different drift assumptions
+($N=52$, 10,000 paths).}{tab:q1-drift}
+
+\newpage
+%=============================================================================
+\section*{Question 2: Time-varying volatility}
+%=============================================================================
+
+\subq{2(a) A two-period volatility term structure}
+{Value a put with $S(0)=100$, $K=100$, $r=4\%$ and $T=1$ when the
+volatility is $4\%$ over the first half of the option's life and $28\%$ over
+the second half. Compare with the flat $\sigma=20\%$ value and explain why
+they agree.}
+\tabplaceholder{Put values: piecewise volatility ($4\%$ then $28\%$) versus
+flat $20\%$.}{tab:q2-termstructure}
+
+\subq{2(b) \texttt{DeltaHedgeTV}}
+{Adapt \texttt{DeltaHedge} so that the volatility can vary over time
+(\texttt{DeltaHedgeTV}). Explain how the volatility used for pricing and for
+the stock path changes as time to maturity decreases.}
+\codeslot{the full definition of \texttt{DeltaHedgeTV}}
+
+\subq{2(c) Hedging performance with time-varying volatility}
+{Repeat the hedging experiment of 1(d) for the piecewise volatility case and
+compare with the constant volatility results.}
+\figplaceholder{Hedging error against terminal stock price, piecewise versus
+constant volatility.}{fig:q2-hedge}
+\tabplaceholder{Mean and variance of the hedging error: constant versus
+time-varying volatility.}{tab:q2-compare}
+
+\subq{2(d) Reversing the volatility structure}
+{Now let the first half have $\sigma=28\%$ and the second half $\sigma=4\%$.
+Repeat the analysis and report the results.}
+\tabplaceholder{Hedging error statistics when the high-volatility period
+comes first.}{tab:q2-reversed}
+
+\subq{2(e) Comparing the three cases}
+{Explain the differences (if any) between constant volatility, low volatility
+first and low volatility second. Support the discussion with your tables and
+figures.}
+
+\newpage
+%=============================================================================
+\section*{Question 3: Asian options and the control variate technique}
+%=============================================================================
+
+\subq{3(a) Pricing an arithmetic average Asian call}
+{Write a Monte-Carlo function that prices a 6-month arithmetic average Asian
+call. Averaging starts after 3 months and runs daily (use 90 days) to
+expiry. Include the code in the PDF.}
+\codeslot{the arithmetic Asian Monte-Carlo pricing function}
+
+\subq{3(b) A first price}
+{Price the option for $S(0)=100$, $K=100$, $r=4\%$, $\sigma=25\%$ with
+$P=10{,}000$ paths. Report the price and its standard error.}
+
+\subq{3(c) Adding the geometric average}
+{Extend the function to price the geometric average option \emph{on the same
+paths and with the same random numbers}, returning both prices.}
+\codeslot{the joint arithmetic/geometric pricing function}
+
+\subq{3(d) Variances and covariance}
+{Extend the function so that it returns five numbers: the geometric price,
+the arithmetic price, their two variances and the covariance of the
+discounted payoffs across the $P$ paths. Provide a code listing.}
+\codeslot{the function returning prices, variances and covariance}
+
+\subq{3(e) Numerical results}
+{Compute the arithmetic and geometric prices for $S(0)=100$, $r=5\%$,
+$q=1\%$, $\sigma=30\%$, $K=100$ and $P=5{,}000$ paths.}
+\tabplaceholder{Arithmetic and geometric Asian prices, variances and
+covariance ($P=5{,}000$).}{tab:q3-results}
+
+\subq{3(f) The control variate estimate}
+{With $T_0=0$, value the geometric option analytically and use it as a
+control variate for the arithmetic price. State the estimator you use and
+report the best estimate.}
+
+\subq{3(g) Paths needed with the control variate}
+{Estimate how many paths the control variate method needs to reach the same
+variance (or confidence interval width) as the plain arithmetic simulation
+with $P=10{,}000$ paths. Show the calculation.}
+\tabplaceholder{Variance of the plain and control-variate estimators and the
+equivalent number of paths.}{tab:q3-paths}
+
+\newpage
+%=============================================================================
+\section*{Question 4: The delta of the Asian option}
+%=============================================================================
+
+\subq{4(a) Finite-difference delta}
+{Compute the delta of the Asian option by finite differences,
+\begin{equation*}
+  \frac{\partial f}{\partial S(0)} \approx
+  \frac{f(S(0)+h) - f(S(0))}{h},
+\end{equation*}
+plot the delta for several bump sizes $h$ and explain which random numbers
+you reuse.}
+\figplaceholder{Finite-difference delta of the Asian option as a function of
+the bump size $h$.}{fig:q4-fd}
+\tabplaceholder{Delta estimates for the bump sizes considered.}{tab:q4-fd}
+
+\subq{4(b) Pathwise delta}
+{Estimate the delta with the pathwise estimator
+\begin{equation*}
+  \frac{\partial f}{\partial S(0)}
+  = \mathbb{E}\left[e^{-rT}\,\mathbb{I}(\bar{S}>K)\,
+    \frac{\bar{S}}{S(0)}\right],
+\end{equation*}
+using the sample average over the Monte-Carlo paths and \emph{without}
+control variates.}
+\codeslot{the pathwise delta estimator}
+\tabplaceholder{Pathwise delta estimate and its standard error.}{tab:q4-pathwise}
+
+\subq{4(c) Control variate for the delta}
+{Investigate whether the geometric-average control variate also helps for
+the delta. Is it as effective as it is for the option price? Quantify your
+answer.}
+\tabplaceholder{Variance reduction for the delta: plain versus control
+variate estimator.}{tab:q4-cv}
+
+%=============================================================================
+\newpage
+\section*{Appendix: Hints for producing figures and tables from Python}
+%=============================================================================
+Delete this appendix before submitting. It only shows how to get the output
+of your notebook into this document.
+
+\subsection*{1. Figures}
+
+Save the figure from the notebook \emph{before} you call
+\texttt{plt.show()}, into a \texttt{figures/} folder next to this file:
+
+\begin{lstlisting}
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(6, 4))
+ax.scatter(S_T, error, s=4)
+ax.set_xlabel("Terminal stock price")
+ax.set_ylabel("Hedging error")
+
+# PDF keeps the plot sharp at any zoom; use dpi=300 with .png if you prefer
+fig.savefig("figures/q1_error.pdf", bbox_inches="tight")
+plt.show()
+\end{lstlisting}
+
+Then replace a placeholder box with:
+
+\begin{lstlisting}[language=TeX]
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{q1_error.pdf}
+  \caption{Hedging error against terminal stock price.}
+  \label{fig:q1-error}
+\end{figure}
+\end{lstlisting}
+
+\texttt{\textbackslash graphicspath\{\{figures/\}\}} is already set, so the
+file name alone is enough. Refer to the figure in the text with
+\texttt{\textbackslash ref\{fig:q1-error\}}.
+
+\subsection*{2. Tables from a pandas DataFrame}
+
+Round and rename first, then let pandas write the LaTeX:
+
+\begin{lstlisting}
+summary = df.groupby("N")["error"].agg(["mean", "var"]).round(4)
+summary.columns = ["Mean", "Variance"]
+
+summary.to_latex("tables/q1_summary.tex",
+                 index=False,
+                 float_format="%.4f",
+                 caption="Hedging error over 10,000 paths.",
+                 label="tab:q1-moments")
+\end{lstlisting}
+
+Two things to know:
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+  \item Passing \texttt{caption=} and \texttt{label=} makes pandas emit a
+        complete \texttt{table} float, so in LaTeX you only write
+        \texttt{\textbackslash input\{tables/q1\_summary.tex\}} at top level.
+  \item Without \texttt{caption=} you get only the \texttt{tabular}, which you
+        must wrap yourself (and then paste the output instead of using
+        \texttt{\textbackslash input} if you want a single self-contained
+        file).
+\end{itemize}
+
+\begin{lstlisting}[language=TeX]
+\begin{table}[H]
+  \centering
+  \input{tables/q1_summary.tex}
+\end{table}
+\end{lstlisting}
+
+\texttt{booktabs} rules (\texttt{\textbackslash toprule},
+\texttt{\textbackslash midrule}, \texttt{\textbackslash bottomrule}) are
+already loaded; use them if you build a table by hand. Keep
+\texttt{float\_format="\%.4f"} so every column has the same precision, and
+\texttt{index=False} unless the index is meaningful.
+
+\subsection*{3. Code listings}
+
+Do not retype code. Point LaTeX at the submitted file and, if needed, select
+the relevant lines:
+
+\begin{lstlisting}[language=TeX]
+\lstinputlisting[language=Python, firstline=42, lastline=78]{code.py}
+\end{lstlisting}
+
+This guarantees the PDF, the notebook and the \texttt{.py} file never
+disagree.
+
+\subsection*{4. Formatting reminders}
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+  \item Use \texttt{[H]} (from the \texttt{float} package) to keep a float
+        where you put it, and \texttt{\textbackslash clearpage} if a large
+        figure or table leaves a bad page break.
+  \item Number tables and figures consistently and refer to them by
+        \texttt{\textbackslash ref}; never write ``the table below''.
+  \item Ten pages is a hard limit: the grey boxes here are guides, not
+        content.
+\end{itemize}
+
+\end{document}
